@@ -77,6 +77,12 @@ def in_ipython():
     "Check if code is running in some kind of IPython environment"
     return bool(ipython_shell())
 
+def in_kaggle():
+    "Check if code is running in a kaggle kernel environment"
+    iskaggle = os.environ.get('KAGGLE_KERNEL_RUN_TYPE', '')
+    if iskaggle: return True
+    else: return False
+    
 def in_colab():
     "Check if the code is running in Google Colaboratory"
     return 'google.colab' in sys.modules
@@ -90,7 +96,7 @@ def in_notebook():
     "Check if the code is running in a jupyter notebook"
     return in_colab() or in_jupyter()
 
-IN_IPYTHON,IN_JUPYTER,IN_COLAB,IN_NOTEBOOK = in_ipython(),in_jupyter(),in_colab(),in_notebook()
+IN_IPYTHON,IN_JUPYTER,IN_COLAB,IN_NOTEBOOK, IN_KAGGLE = in_ipython(),in_jupyter(),in_colab(),in_notebook(),in_kaggle()
 
 def remove_prefix(text, prefix):
     "Temporary until py39 is a prereq"
